@@ -1,0 +1,25 @@
+{
+  "title": "string",
+  "preview": "string",
+  "article_markdown": "string",
+  "image": {
+    "url": "string",
+    "alt": "string"
+  },
+  "metadata": {
+    "channel": "string",
+    "format": "Статья|Подборка|История|Разбор",
+    "tags": ["string"]
+  },
+  "sources": ["string"],
+  "qa": {
+    "text": "pass|revise",
+    "visual": "pass|revise"
+  },
+  "preview_url": "string|null",
+  "human_approval": false,
+  "publication": {
+    "site_url": "string|null",
+    "rss": "not_started|manual_started|published"
+  }
+}
