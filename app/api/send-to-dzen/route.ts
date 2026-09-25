@@ -1,0 +1,3 @@
+import {NextResponse} from "next/server";
+import {supabaseAdmin} from "../../../lib/supabase";
+export async function POST(req:Request){const {slug}=await req.json();const now=new Date().toISOString();const {data,error}=await supabaseAdmin().from("articles").update({status:"approved_for_dzen",dzen_sent_at:now}).eq("slug",slug).select("*").single();if(error)return NextResponse.json({error:error.message},{status:500});return NextResponse.json(data);}
