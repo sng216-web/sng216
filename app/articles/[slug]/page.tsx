@@ -1,0 +1,8 @@
+"use client";
+import {useEffect,useState} from "react";
+export default function ArticlePage(){const [a,setA]=useState<any>();const [comment,setComment]=useState("");const [rework,setRework]=useState(false);const slug="test-article";
+useEffect(()=>{fetch("/api/articles/"+slug).then(r=>r.json()).then(setA)},[]);
+if(!a)return <main>Загрузка…</main>;
+async function dzen(){const r=await fetch("/api/send-to-dzen",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({slug})});setA(await r.json())}
+async function sendRework(){await fetch("/api/rework",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({slug,comment})});setRework(false);setComment("")}
+return <main><article className="article"><div className="meta">{a.channel} · {a.format}</div><h1>{a.title}</h1><p className="preview">{a.preview}</p><div className="content">{a.content_markdown}</div>{a.dzen_sent_at?<div className="sent">Передано в Дзен: {new Date(a.dzen_sent_at).toLocaleString("ru-RU")}</div>:<section className="panel">{rework?<><h3>Что необходимо исправить?</h3><textarea value={comment} onChange={e=>setComment(e.target.value)} placeholder="Что не понравилось и что изменить?"/><div className="actions"><button className="button secondary" onClick={()=>setRework(false)}>Отмена</button><button className="button primary" disabled={!comment.trim()} onClick={sendRework}>Передать редактору</button></div></>:<div className="actions"><button className="button secondary" onClick={()=>setRework(true)}>Доработать</button><button className="button primary" onClick={dzen}>Отправить в Дзен</button></div>}</section>}</article></main>}
