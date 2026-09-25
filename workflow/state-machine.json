@@ -1,0 +1,32 @@
+{
+  "states": [
+    "NEW","STRATEGY","RESEARCH","DRAFT","SEO","EDIT","QA",
+    "VISUAL","FINAL","PREVIEW","HUMAN_REVIEW","APPROVED",
+    "SITE_READY","RSS_MANUAL","PUBLISHED","ANALYTICS","LEARNING"
+  ],
+  "human_gate": {
+    "state": "HUMAN_REVIEW",
+    "actor": "Наталья",
+    "required_before": ["APPROVED","SITE_READY","RSS_MANUAL"],
+    "rss_auto_publish": false
+  },
+  "flow": [
+    ["NEW","STRATEGY"],
+    ["STRATEGY","RESEARCH"],
+    ["RESEARCH","DRAFT"],
+    ["DRAFT","SEO"],
+    ["SEO","EDIT"],
+    ["EDIT","QA"],
+    ["QA","VISUAL"],
+    ["VISUAL","FINAL"],
+    ["FINAL","PREVIEW"],
+    ["PREVIEW","HUMAN_REVIEW"],
+    ["HUMAN_REVIEW","APPROVED"],
+    ["APPROVED","SITE_READY"],
+    ["SITE_READY","RSS_MANUAL"],
+    ["RSS_MANUAL","PUBLISHED"],
+    ["PUBLISHED","ANALYTICS"],
+    ["ANALYTICS","LEARNING"]
+  ],
+  "revision_return": "Главный редактор"
+}
