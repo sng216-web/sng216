@@ -1,0 +1,3 @@
+import {NextResponse} from "next/server";
+import {supabaseAdmin} from "../../../lib/supabase";
+export async function POST(req:Request){const {slug,comment}=await req.json();if(!comment?.trim())return NextResponse.json({error:"Комментарий обязателен"},{status:400});const db=supabaseAdmin();const {data:a,error:e}=await db.from("articles").select("id").eq("slug",slug).single();if(e)return NextResponse.json({error:e.message},{status:404});const {data,error}=await db.from("rework_requests").insert({id:crypto.randomUUID(),article_id:a.id,comment,status:"new"}).select("*").single();if(error)return NextResponse.json({error:error.message},{status:500});await db.from("articles").update({status:"rework_requested"}).eq("id",a.id);return NextResponse.json(data);}
